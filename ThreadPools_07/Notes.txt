@@ -1,0 +1,58 @@
+Why Thread Pool? 
+Suppose we have an java server in the production where we are creating thread using 
+manually using new Thread or Completeable Future.
+
+Now if 10k request comes then each will create one thread and therad is managed by OS and CPU so 
+there is high changes that server will crash or stop because of memory limit.
+
+This is called Thread Overload problem.
+
+Solution --> 
+Thread Pool or fixed number of thread in the pool.
+We can use Thread pool that will have maximum number of connection pools so for 
+each task it will pick thread from the pool assign to the CPU and once the thread is free 
+it will again move to the Thread pool for the next working.
+
+And if all threads are currently working now and more request comes then all have to wait in the 
+Event queue so that if any worker threads gets free then they will do the task.
+
+So this is called Thread Pooling.
+
+Types of Thread Pool---------------------------->
+
+1. ForkJoinPool.commonPool()
+Ye JVM/JDK ka shared common pool hai : ForkJoinPool.commonPool()
+
+Iske threads ka naam generally aisa dikhta hai:
+ForkJoinPool.commonPool-worker-1
+ForkJoinPool.commonPool-worker-2
+
+Ye commonly use hota hai by things like:
+CompletableFuture
+parallelStream()
+
+Example:
+CompletableFuture.runAsync(() -> {
+    System.out.println(Thread.currentThread().getName());
+});
+
+Output roughly: ForkJoinPool.commonPool-worker-1
+
+2. Executors.newFixedThreadPool()
+If we create thread pool manually using Executer Service :
+
+ExecutorService executor = Executors.newFixedThreadPool(5);
+
+toh internally fixed-size worker threads ka pool create hota hai.
+Default thread names:
+pool-1-thread-1
+pool-1-thread-2
+pool-1-thread-3
+...
+
+Agar doosra executor banaya:
+ExecutorService executor2 = Executors.newFixedThreadPool(5);
+
+toh naam ho sakta hai: pool-2-thread-1
+
+pool-1 ka matlab first Executor-created pool, koi special type nahi.
