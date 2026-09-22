@@ -1,3 +1,13 @@
+⭐⭐⭐ What is Async Programing ===============================>
+Async programming is something we can say Non blocking operations i.e next execution 
+will not wait untill the current completed.
+
+Asynchronous programming means the current execution does not have to block/wait for an operation to complete before moving on to other work.
+
+⭐⭐ ================>
+Asynchronous programming allows an operation to execute without blocking the current execution while waiting for its completion. 
+The result can be handled later when it becomes available.
+
 CompletableFuture ⭐⭐⭐ ==================>
 CompletableFuture Java ka asynchronous programming API hai jo tasks ko background threads me execute karta hai 
 aur unke results ko bina manually wait kiye chain, combine aur handle karne deta hai.
